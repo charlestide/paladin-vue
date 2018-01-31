@@ -1,0 +1,148 @@
+
+@import "variable";
+
+//Header
+#header {
+  padding: 0;
+  border-bottom: 1px solid;
+  border-bottom-color: $main-color-bd;
+  background: $white;
+
+  .fixed-button {
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: unset;
+    font-size: 24px;
+
+    &:last-child {
+      border-left-width: 1px;
+      border-left-color: $main-color-bd;
+      border-left-style: solid;
+    }
+
+    &:first-child {
+      border-right-width: 1px;
+      border-right-color: $main-color-bd;
+      border-right-style: solid;
+    }
+  }
+}
+
+
+
+.dropdown {
+  font-size: 16px;
+  margin-right: 10px;
+  color: $main-color-fg;
+}
+
+//BreadCrumb
+#breadcrumb {
+  padding: 0;
+  border-bottom: 1px solid;
+  border-bottom-color: $main-color-bd;
+  background: $white;
+
+  line-height: 50px;
+  height: 50px;
+
+  .title-wrapper {
+
+
+    .icon {
+      font-size: 22px;
+      border-right: 1px dotted  $main-color-bd;
+      width: 50px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .summary {
+      font-size: $main-font-size;
+    }
+  }
+}
+
+.breadcrumb-wrapper {
+  height: 50px;
+  line-height: 50px;
+  margin-right: 20px;
+}
+
+//Footer
+#footer {
+  background: #fff;
+  border-style: solid;
+  border-color: $main-color-bd;
+  border-bottom: 1px;
+  border-top: 1px;
+  line-height: 50px;
+}
+
+#sidebar-left {
+  .brand {
+    height: 50px;
+    width: 100%;
+    left: 0;
+    display: block;
+  }
+
+  .avatar-info {
+    padding: 15px 10px;
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      padding: 8px 13px;
+      font-size: 30px;
+      border: 1px solid $primary-color-bg;
+      color: $primary-color-bg;
+      border-radius: 50%;
+    }
+  }
+
+  #sidebar-left {
+    height: 100%;
+    min-height: 100%;
+    color: $secondary-color-fg;
+  }
+
+  .el-menu {
+    border-right: none;
+
+  }
+
+  .is-active {
+    color: $secondary-color-fg;
+
+    > .icon {
+      background: $primary-color-bg;
+    }
+  }
+
+  .icon {
+    border: 2px solid $secondary-color-fg;
+    border-radius: 50%;
+    text-align: center;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .text {
+    margin-left: 10px;
+  }
+
+  .fixed-button {
+    border: none;
+    width: 100%;
+    height: 50px;
+    border-radius: unset;
+    font-size: 24px;
+    margin: 0 auto;
+  }
+}
