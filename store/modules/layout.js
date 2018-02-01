@@ -25,7 +25,7 @@ export default {
         mainPage: (state) => state.mainPage,
         lastPage: (state) => sessionStorage.getItem(PVC_LAST_PAGE),
         menuTree: (state) => DataHelper.getChildren(state.menus),
-        logo: (state) => _.has(state.settings,'logo') ? state.settings.logo : '/logo.png',
+        logo: (state) => state.settings && _.has(state.settings,'logo_path') ? state.settings.logo_path : '/logo.png',
         settings: (state) => state.settings,
         isExpire: (state) => {
             if (_.has(state.settings,'updateAt')) {
@@ -88,7 +88,7 @@ export default {
                 if (getters.isExpire) {
                     this._vm.$axios.get('/layout/settings')
                         .then(response => {
-                            commit('setSettings', response.data);
+                            commit('setSettings', response.data.data);
                             resolve(getters.settings);
                         })
                 } else {

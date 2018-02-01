@@ -1,6 +1,6 @@
 <template>
     <el-container fluid id="login" align-h="center" align-v="center">
-            <el-row align-h="center"><img src="logo" /></el-row>
+            <el-row align-h="center"><img :src="logo" /></el-row>
             <br/>
             <br/>
             <el-form v-model="form">
@@ -56,7 +56,7 @@
         },
         computed: {
             ...mapGetters('layout',['lastPage','logo']),
-            ...mapGetters('auth',['clientId','clientSecret'])
+            ...mapGetters('auth',['clientId','clientSecret']),
         },
         methods: {
             ...mapMutations('auth',['setToken','setClient']),
