@@ -1,6 +1,6 @@
 <template>
     <el-container fluid id="login" align-h="center" align-v="center">
-            <el-row align-h="center"><img src="/logo.png" /></el-row>
+            <el-row align-h="center"><img src="logo" /></el-row>
             <br/>
             <br/>
             <el-form v-model="form">
@@ -55,12 +55,13 @@
             }
         },
         computed: {
-            ...mapGetters('layout',['lastPage']),
+            ...mapGetters('layout',['lastPage','logo']),
             ...mapGetters('auth',['clientId','clientSecret'])
         },
         methods: {
             ...mapMutations('auth',['setToken','setClient']),
             ...mapActions('auth',['getAdmin']),
+            ...mapActions('layout',['getSettings']),
 
             onSubmit(event) {
                 event.preventDefault();
@@ -115,6 +116,9 @@
                     return Promise.reject(error.response)
                 });
             }
+        },
+        mounted() {
+            this.getSettings();
         }
     }
 </script>

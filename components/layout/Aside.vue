@@ -4,7 +4,7 @@
         <el-row class="text-algin">
             <div class="brand bg-primary text-center" v-show="!sidebar.collapse">
                 <a href="/">
-                    <img class="logo" src="/logo.png" alt="brand logo" width="150" height="45" />
+                    <img class="logo" :src="logo" alt="brand logo" width="150" height="45" />
                 </a>
             </div>
             <button class="btn btn-outline-primary fixed-button" v-show="sidebar.collapse" @click="expandSideBar">
@@ -58,7 +58,7 @@
         },
         computed: {
             ...mapGetters('auth',['admin']),
-            ...mapGetters('layout',['sidebar','menuTree']),
+            ...mapGetters('layout',['sidebar','menuTree','logo']),
             ...mapState('layout',['menus']),
             sidebarWidth() {
                 return this.sidebar.collapse ? '65px' : '200px';
@@ -94,14 +94,13 @@
                 })
         },
         mounted() {
-            this.currentMenu;
+            this.getSettings();
         },
         methods: {
             ...mapMutations('layout',['expandSideBar']),
-            ...mapActions('layout',['getMenus']),
+            ...mapActions('layout',['getMenus','getSettings']),
             menuClick(index,path) {
                 let menu = _.find(this.menus,{id: Number(index)});
-                console.log(index,menu,this.menus);
                 if (menu && menu.url) {
                     this.$router.push(menu.url);
                 }

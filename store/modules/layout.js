@@ -17,14 +17,25 @@ export default {
             summary: ''
         },
         breadcrumb: [],
-        menus: []
+        menus: [],
+        settings: {}
     },
     getters: {
         sidebar: (state) => state.sidebar,
         mainPage: (state) => state.mainPage,
         lastPage: (state) => sessionStorage.getItem(PVC_LAST_PAGE),
-        menuTree: (state) => DataHelper.getChildren(state.menus)
-
+        menuTree: (state) => DataHelper.getChildren(state.menus),
+        logo: (state) => _.has(state.settings,'logo') ? state.settings.logo : '/logo.png',
+        settings: (state) => state.settings,
+        isExpire: (state) => {
+            if (_.has(state.settings,'updateAt')) {
+                let now = (new Date()).getTime() / 1000,
+                    updateAt = state.settings.updateAt.getTime() / 1000;
+                return now - updateAt > 300;
+            } else {
+                return true;
+            }
+        }
     },
     mutations: {
         collapseSideBar(state) {
@@ -46,6 +57,14 @@ export default {
 
         setMenus(state,menus) {
             state.menus = menus;
+        },
+
+        setSettings(state,settings) {
+            if (!_.isObject(settings)) {
+                settings = {};
+            }
+            settings['updatedAt'] = new Date();
+            state.settings = settings;
         }
     },
     actions: {
@@ -62,6 +81,20 @@ export default {
                         RemoteHelper.showRemoteError(this._vm,error,'获取菜单失败');
                     });
             });
+        },
+
+        getSettings({commit,getters}) {
+            return new Promise(resolve => {
+                if (getters.isExpire) {
+                    this._vm.$axios.get('/layout/settings')
+                        .then(response => {
+                            commit('setSettings', response.data);
+                            resolve(getters.settings);
+                        })
+                } else {
+                    resolve(getters.settings);
+                }
+            })
         }
     }
 };
