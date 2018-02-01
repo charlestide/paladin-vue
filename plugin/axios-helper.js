@@ -10,24 +10,12 @@ class AxiosHelper {
             axiosHelper = new AxiosHelper(options.router);
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         axios.defaults.headers.common['X-CSRF-TOKEN'] = options.csrf;
-        // axios.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.getItem('access-token');
-        // axios.defaults.headers.post['content-type'] = 'application/x-www-form-urlencoded';
 
         axios.interceptors.request.use(config => {
             if (config.url !== '/oauth/token') {
                 config.headers['Authorization'] = 'Bearer ' + sessionStorage.getItem('access-token');
             }
 
-            // if(config.method  === 'post'){
-            //     // JSON 转换为 FormData
-            //     const formData = new FormData();
-            //     Object.keys(config.data).forEach(key => formData.append(key, config.data[key]));
-            //     config.data = formData
-            // }
-
-            // if (_.includes(['post','put','patch'],config.method)) {
-            //     store.commit('resetFormError');
-            // }
             return config
         });
 
@@ -38,6 +26,11 @@ class AxiosHelper {
                     axiosHelper.refreshToken(axios);
                 }
 
+                //设置应用版本，用于数据库版本
+                if (_.has(response,'data.version')) {
+                    localStorage.setItem('version',response.data.version);
+                }
+
                  return response;
             },error => {
                 if (error.response) {
@@ -46,8 +39,9 @@ class AxiosHelper {
                         case 401:
                             axiosHelper.router.push('/login');
                             break;
+                        case 403:
                         case 405:
-                            axiosHelper.notAllow();
+                            axiosHelper.notAllow(error.response);
                             break;
                     }
                 } else {
@@ -85,20 +79,23 @@ class AxiosHelper {
     static isTokenExpired() {
         let expiresAt = sessionStorage.getItem('expires_at');
         if (expiresAt) {
-
-            // let get = new Date();
-            // get.setTime(expiresAt * 1000);
-            // console.log('get expires at ' + get);
-
-            // console.log('current ' + (new Date()));
             return expiresAt - (new Date).getTime() / 1000 <= 60;
         } else {
             return false;
         }
     }
 
-    notAllow() {
-        alert('您没有权限进行此操作');
+    /**
+     *
+     * @param response
+     */
+    notAllow(response) {
+        let message = '您没有权限进行此操作';
+        if (_.has(response,'message')) {
+            message = response.message;
+        }
+
+        this.router.app.$message(message);
     }
 }
 

@@ -41,25 +41,25 @@
             }),
             // ...mapMutations('menu',{reset: Definition.STORE_MUTATION_RESET_QUERY}),
             renderContent(h, { node, data, store }) {
-                // return (
-                //     <span style="flex: 1; display: flex; align-items: center; justify-content: space-between; padding-right: 8px">
-                //         <span>
-                //             <el-tooltip content={'点击跳转到 '+data.url}  placement="left">
-                //                 <pvc-button type="plain" url="data.url" icon={'fa fa-'+data.icon} > {node.label} {data.url}</pvc-button>
-                //             </el-tooltip>
-                //             <el-tooltip content="点击查看权限 "  placement="right">
-                //                 <pvc-button type="info" url={'/permission/'+data.permission_id} > 权限 {data.permission ? data.permission.name : ''}</pvc-button>
-                //             </el-tooltip>
-                //         </span>
-                //         <span>
-                //             <el-button-group>
-                //                 <pvc-button  type="primary" icon="el-icon-plus" url={'/menu/create/' + data.id}>添加</pvc-button>
-                //                 <pvc-button style="font-size: 12px;" type="primary" url={'/menu/'+data.id+'/edit'} icon="el-icon-edit">修改</pvc-button>
-                //                 <el-button style="font-size: 12px;" type="primary" icon="el-icon-delete" on-click={ () => this.remove(node, data.id) }>删除</el-button>
-                //             </el-button-group>
-                //         </span>
-                //     </span>
-                // );
+                return (
+                    <span style="flex: 1; display: flex; align-items: center; justify-content: space-between; padding-right: 8px">
+                        <span>
+                            <el-tooltip content={'点击跳转到 '+data.url}  placement="left">
+                                <pvc-button type="plain" url="data.url" icon={'fa fa-'+data.icon} > {node.label} {data.url}</pvc-button>
+                            </el-tooltip>
+                            <el-tooltip content="点击查看权限 "  placement="right">
+                                <pvc-button type="info" url={'/permission/'+data.permission_id} > 权限 {data.permission ? data.permission.name : ''}</pvc-button>
+                            </el-tooltip>
+                        </span>
+                        <span>
+                            <el-button-group>
+                                <pvc-button  type="primary" icon="el-icon-plus" url={'/menu/create/' + data.id}>添加</pvc-button>
+                                <pvc-button style="font-size: 12px;" type="primary" url={'/menu/'+data.id+'/edit'} icon="el-icon-edit">修改</pvc-button>
+                                <el-button style="font-size: 12px;" type="primary" icon="el-icon-delete" on-click={ () => this.remove(node, data.id) }>删除</el-button>
+                            </el-button-group>
+                        </span>
+                    </span>
+                );
             },
             remove(node,id) {
                 this.$confirm(

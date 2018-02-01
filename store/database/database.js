@@ -8,7 +8,7 @@ export default class Database {
 
     static open() {
         return new Promise((resolve,reject) => {
-            let request = Database.indexedDB.open(DatabaseName,1);
+            let request = Database.indexedDB.open(DatabaseName,Number(localStorage.getItem('version')));
             request.onerror = (event) => {
                 console.error('Cannot open IndexedDB',event);
                 reject(event);
