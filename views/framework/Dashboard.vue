@@ -26,7 +26,7 @@
         },
         created() {
             this.loading = true;
-            this.$axios.get('/dashboard/routes')
+            this.$axios.get('/layout/routes')
                 .then(response => {
                     this.tableData = response.data.data;
                     this.total = response.data.recordsTotal;
