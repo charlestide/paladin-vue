@@ -1,5 +1,6 @@
 
-import routeMap from "./routes";
+// import routeMap from "./routes";
+import Router from "../modules/router";
 import Vue from "vue";
 import Vuex from "vuex";
 import VueRouter from "vue-router";
@@ -22,7 +23,7 @@ class Launcher {
         this.document = window.document;
         this.map = {};
         this.storeConfig = {};
-        this.routeConfig = [];
+        this._router = new Router();
     }
 
     init() {
@@ -50,8 +51,12 @@ class Launcher {
         this.storeConfig = storeConfig;
     }
 
-    setRouteConfig(routeConfig) {
-        this.routeConfig = routeConfig;
+    set router(router) {
+        this._router = router;
+    }
+
+    get router() {
+        return this._router;
     }
 
     boot() {
@@ -98,16 +103,26 @@ class Launcher {
         });
     }
 
-    setRoutes(routes) {
-        this.routeConfig = routes;
+    getRoutes() {
+       return this.router.output();
     }
 
     _setRoute() {
         let loader = PreLoader.getInstance();
-        _.merge(this.routeConfig,routeMap);
+
+        this.router
+            .addRootRoute('/init','pvc-init')
+            .addRootRoute('/login','pvc-login')
+            .addRootRoute('/','pvc-app');
+        this.router
+            .addModuleRoute('admin','管理员','管理员','users')
+            .addModuleRoute('role','角色','角色','users')
+            .addModuleRoute('permission','权限','权限','user-secret')
+            .addModuleRoute('permission-category','权限类别','权限类别','user-secret')
+            .addModuleRoute('menu','菜单','菜单','list-ul');
 
         this.vueConfig.router = new VueRouter({
-            routes: this._parseRoute(this.routeConfig,loader)
+            routes: this._parseRoute(this.router.output(),loader)
         });
     }
 
