@@ -96,7 +96,7 @@ class Maker {
         });
         template += "};\n";
         template += "export default PreLoaderMapping; \n";
-        template += "module.exports = PreLoaderMapping; \n";
+        // template += "module.exports = PreLoaderMapping; \n";
         fsExtra.writeFileSync(targetFile, template, 'utf-8');
     }
 }

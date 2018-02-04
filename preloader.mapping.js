@@ -33,4 +33,3 @@ let PreLoaderMapping = {
 "pvc-role-show": () => import(/* webpackChunkName: "pvc-role-show" */ "./views/role/RoleShow.vue"), 
 };
 export default PreLoaderMapping; 
-module.exports = PreLoaderMapping; 
