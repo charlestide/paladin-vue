@@ -1,6 +1,6 @@
 {
   "name": "paladin-vue",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "the View for Paladin Admin",
   "main": "index.js",
   "bin": {
